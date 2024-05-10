@@ -6,11 +6,10 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:08:57 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/05/10 14:27:19 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/05/10 20:37:30 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "stack.h"
 
 static void	ft_free_data(char **data)

@@ -6,13 +6,13 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:40:55 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/05/05 23:56:23 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/05/10 22:45:06 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.h"
 
-t_stack	*ft_stack_ctor()
+t_stack	*ft_stack_ctor(void)
 {
 	t_stack	*stack;
 
@@ -34,7 +34,7 @@ bool	ft_stack_empty(t_stack *stack)
 
 void	ft_stack_push(t_stack *stack, int data)
 {
-	t_node *node;
+	t_node	*node;
 
 	if (!stack)
 		ft_error();
@@ -45,12 +45,12 @@ void	ft_stack_push(t_stack *stack, int data)
 	node->data = data;
 	node->next = stack->m_head;
 	stack->m_head = node;
-	stack->m_size += 1; 
+	stack->m_size += 1;
 }
 
 void	ft_stack_pop(t_stack *stack)
 {
-	t_node *top;
+	t_node	*top;
 
 	if (!stack)
 		ft_error();
@@ -62,17 +62,11 @@ void	ft_stack_pop(t_stack *stack)
 	stack->m_size -= 1;
 }
 
-void	ft_stack_clear(t_stack *stack)
-{
-	while (stack->m_head)
-		ft_stack_pop(stack);
-}
-
 void	ft_stack_dtor(t_stack *stack)
 {
 	if (!stack)
 		return ;
-	ft_stack_clear(stack);
+	while (stack->m_head)
+		ft_stack_pop(stack);
 	free(stack);
 }
-

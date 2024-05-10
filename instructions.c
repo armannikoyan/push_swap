@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 16:17:36 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/05/10 14:24:13 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/05/10 22:42:36 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ft_push(t_stack *dst, t_stack *src)
 
 static void	ft_rotate(t_stack *stack, bool reverse)
 {
-	int	tmp;
+	int		tmp;
 	t_stack	*tmp_stack;
 
 	if (!stack)
@@ -43,26 +43,20 @@ static void	ft_rotate(t_stack *stack, bool reverse)
 	if (stack->m_size < 2)
 		return ;
 	tmp_stack = ft_stack_ctor();
+	tmp = stack->m_head->data;
 	if (!reverse)
-	{
-		tmp = stack->m_head->data;
 		ft_stack_pop(stack);
-		while (!ft_stack_empty(stack))
-			ft_execute(stack, tmp_stack, "pb", false);
+	while (!ft_stack_empty(stack))
+		ft_execute(stack, tmp_stack, "pb", false);
+	if (!reverse)
 		ft_stack_push(stack, tmp);
-		while (!ft_stack_empty(tmp_stack))
-			ft_execute(stack, tmp_stack, "pa", false);
-	}
-	else
-	{
-		while (!ft_stack_empty(stack))
-			ft_execute(stack, tmp_stack, "pb", false);
-		tmp = tmp_stack->m_head->data;
+	tmp = tmp_stack->m_head->data;
+	if (reverse)
 		ft_stack_pop(tmp_stack);
-		while (!ft_stack_empty(tmp_stack))
-			ft_execute(stack, tmp_stack, "pa", false);
+	while (!ft_stack_empty(tmp_stack))
+		ft_execute(stack, tmp_stack, "pa", false);
+	if (reverse)
 		ft_stack_push(stack, tmp);
-	}
 	ft_stack_dtor(tmp_stack);
 }
 

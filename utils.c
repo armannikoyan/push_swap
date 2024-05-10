@@ -6,13 +6,13 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:50:04 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/05/10 15:41:22 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/05/10 19:42:55 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.h"
 
-void	ft_error()
+void	ft_error(void)
 {
 	write(2, "Error\n", 6);
 	exit(-1);
@@ -85,7 +85,7 @@ void	ft_define_stack(char **argv, t_stack *stack)
 char	**ft_format_argv(int argc, char **argv)
 {
 	char	**data;
-	int	i;
+	int		i;
 
 	if (argc < 2)
 		return (NULL);
