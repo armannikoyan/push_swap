@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:40:55 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/05/03 22:23:31 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/05/05 23:56:23 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_stack_push(t_stack *stack, int data)
 	node->data = data;
 	node->next = stack->m_head;
 	stack->m_head = node;
-	stack->m_size++; 
+	stack->m_size += 1; 
 }
 
 void	ft_stack_pop(t_stack *stack)
@@ -59,7 +59,7 @@ void	ft_stack_pop(t_stack *stack)
 		ft_error();
 	stack->m_head = stack->m_head->next;
 	free(top);
-	stack->m_size--;
+	stack->m_size -= 1;
 }
 
 void	ft_stack_clear(t_stack *stack)
@@ -67,3 +67,12 @@ void	ft_stack_clear(t_stack *stack)
 	while (stack->m_head)
 		ft_stack_pop(stack);
 }
+
+void	ft_stack_dtor(t_stack *stack)
+{
+	if (!stack)
+		return ;
+	ft_stack_clear(stack);
+	free(stack);
+}
+

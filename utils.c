@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:50:04 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/05/04 23:46:50 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:41:22 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_error()
 {
-	ft_printf("Error\n");
+	write(2, "Error\n", 6);
 	exit(-1);
 }
 
@@ -53,10 +53,10 @@ void	ft_ensure_valid_input(char **argv)
 	i = 0;
 	while (argv[i])
 	{
-		j = i;
-		while (argv[j] && argv[j + 1])
+		j = i + 1;
+		while (argv[j])
 		{
-			if (!ft_strcmp(argv[j], argv[j + 1]))
+			if (!ft_strcmp(argv[i], argv[j]))
 				ft_error();
 			j++;
 		}

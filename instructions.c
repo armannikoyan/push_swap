@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 16:17:36 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/05/04 00:07:41 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:24:13 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,39 +29,41 @@ static void	ft_push(t_stack *dst, t_stack *src)
 {
 	if (!dst || !src)
 		ft_error();
-	if (!src->m_head)
-		return ;
 	ft_stack_push(dst, src->m_head->data);
+	ft_stack_pop(src);
 }
 
 static void	ft_rotate(t_stack *stack, bool reverse)
 {
-	t_stack	*temp_stack;
-	int	temp_data;
+	int	tmp;
+	t_stack	*tmp_stack;
 
-	temp_stack = ft_stack_ctor();
-	if (!temp_stack)
+	if (!stack)
 		ft_error();
+	if (stack->m_size < 2)
+		return ;
+	tmp_stack = ft_stack_ctor();
 	if (!reverse)
-		temp_data = stack->m_head->data;
-	ft_stack_pop(stack);
-	while (stack->m_head)
 	{
-		ft_stack_push(temp_stack, stack->m_head->data);
+		tmp = stack->m_head->data;
 		ft_stack_pop(stack);
+		while (!ft_stack_empty(stack))
+			ft_execute(stack, tmp_stack, "pb", false);
+		ft_stack_push(stack, tmp);
+		while (!ft_stack_empty(tmp_stack))
+			ft_execute(stack, tmp_stack, "pa", false);
 	}
-	if (reverse)
-		temp_data = temp_stack->m_head->data;
 	else
-		ft_stack_push(temp_stack, temp_data);
-	while (temp_stack->m_head)
 	{
-		ft_stack_push(stack, temp_stack->m_head->data);
-		ft_stack_pop(temp_stack);
+		while (!ft_stack_empty(stack))
+			ft_execute(stack, tmp_stack, "pb", false);
+		tmp = tmp_stack->m_head->data;
+		ft_stack_pop(tmp_stack);
+		while (!ft_stack_empty(tmp_stack))
+			ft_execute(stack, tmp_stack, "pa", false);
+		ft_stack_push(stack, tmp);
 	}
-	if (reverse)
-		ft_stack_push(stack, temp_data);
-	free(temp_stack);
+	ft_stack_dtor(tmp_stack);
 }
 
 static void	ft_execute_helper(t_stack *stack_a, t_stack *stack_b, char *name)
@@ -86,7 +88,7 @@ void	ft_execute(t_stack *stack_a, t_stack *stack_b, char *name, bool print)
 {
 	if (print)
 		ft_printf("%s\n", name);
-	else if (!ft_strcmp("sa", name))
+	if (!ft_strcmp("sa", name))
 		ft_swap(stack_a);
 	else if (!ft_strcmp("sb", name))
 		ft_swap(stack_b);
