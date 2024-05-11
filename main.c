@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:08:57 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/05/10 20:37:30 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:16:14 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ int	main(int argc, char **argv)
 	ft_ensure_valid_input(data);
 	ft_define_stack(data, stack);
 	ft_free_data(data);
+	if (ft_stack_sorted(stack))
+		exit(0);
+	ft_minimal_sort(stack);
 	ft_tiny_sort(stack);
+	ft_simple_sort(stack);
+	// while (!ft_stack_empty(stack))
+	// {
+	// 	ft_printf("%d\n", stack->m_head->data);
+	// 	ft_stack_pop(stack);
+	// }
 	ft_stack_dtor(stack);
 }
