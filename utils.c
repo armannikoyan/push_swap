@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:50:04 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/05/10 19:42:55 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/07/15 12:08:16 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,16 @@ void	ft_ensure_valid_input(char **argv)
 	int	i;
 	int	j;
 
-	if (!argv)
+	if (!argv || !argv[1])
 		ft_error();
 	i = 0;
 	while (argv[i])
 	{
-		j = i + 1;
-		while (argv[j])
+		j = -1;
+		while (argv[i][++j])
 		{
-			if (!ft_strcmp(argv[i], argv[j]))
+			if (ft_isalpha(argv[i][j]))
 				ft_error();
-			j++;
 		}
 		ft_number_validation(argv[i]);
 		i++;

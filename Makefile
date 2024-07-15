@@ -6,14 +6,14 @@
 #    By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 14:43:54 by anikoyan          #+#    #+#              #
-#    Updated: 2024/05/10 15:24:13 by anikoyan         ###   ########.fr        #
+#    Updated: 2024/07/15 10:06:41 by anikoyan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
 SRCS = main.c stack.c utils.c \
-       sort.c instructions.c
+       sort.c stack_helper.c instructions.c
 OBJDIR = objs
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 
