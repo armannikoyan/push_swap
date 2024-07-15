@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:08:57 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/07/15 12:21:11 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/07/15 12:48:53 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	main(int argc, char **argv)
 	ft_free_data(data);
 	if (ft_stack_sorted(stack))
 		exit(0);
+	ft_stack_index(stack);
 	ft_stack_sort(stack);
 	// while (!ft_stack_empty(stack))
 	// {

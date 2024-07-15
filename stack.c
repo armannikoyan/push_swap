@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:40:55 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/05/10 22:45:06 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/07/15 13:09:05 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_stack_push(t_stack *stack, int data)
 	if (!node)
 		ft_error();
 	node->data = data;
+	node->index = 0;
 	node->next = stack->m_head;
 	stack->m_head = node;
 	stack->m_size += 1;

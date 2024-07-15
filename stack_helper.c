@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:59:01 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/07/15 10:00:44 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/07/15 13:10:13 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,31 @@ int	ft_stack_max(t_stack *stack)
 		tmp = tmp->next;
 	}
 	return (max);
+}
+
+void	ft_stack_index(t_stack *stack)
+{
+	t_node	*tmp;
+	size_t	index;
+	int		min;
+
+	if (!stack)
+		ft_error();
+	index = 1;
+	while (index <= stack->m_size)
+	{
+		tmp = stack->m_head;
+		min = INT_MAX;
+		while (tmp)
+		{
+			if (tmp->data < min && tmp->index == 0)
+				min = tmp->data;
+			tmp = tmp->next;
+		}
+		tmp = stack->m_head;
+		while (tmp && tmp->data != min)
+			tmp = tmp->next;
+		tmp->index = index;
+		index++;
+	}
 }

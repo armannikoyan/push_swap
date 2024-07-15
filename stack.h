@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:37:29 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/07/15 12:20:53 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/07/15 12:59:24 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 typedef struct s_node
 {
 	int				data;
+	unsigned int	index;
 	struct s_node	*next;
 }	t_node;
 
@@ -42,6 +43,7 @@ void	ft_stack_dtor(t_stack *stack);
 void	ft_stack_push(t_stack *stack, int data);
 void	ft_stack_pop(t_stack *stack);
 void	ft_stack_sort(t_stack *stack);
+void	ft_stack_index(t_stack *stack);
 bool	ft_stack_sorted(t_stack *stack);
 bool	ft_stack_empty(t_stack *stack);
 int		ft_stack_max(t_stack *stack);

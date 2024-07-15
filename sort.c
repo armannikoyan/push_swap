@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 15:05:49 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/07/15 12:30:25 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/07/15 13:40:18 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,38 @@ static void	ft_simple_sort(t_stack *stack_a)
 	ft_stack_dtor(stack_b);
 }
 
+static void	ft_butterfly_sort(t_stack *stack_a)
+{
+	int				i;
+	t_node			*tmp;
+	t_stack			*stack_b;
+	unsigned int	approximation;
+
+	stack_b = ft_stack_ctor();
+	if (!stack_a || !stack_b)
+		ft_error();
+	approximation = (unsigned int)(0.0375 * stack_a->m_size + 11.25);
+	i = 1;
+	tmp = stack_a->m_head;
+	while (tmp)
+	{
+		if (tmp->index <= i && i > 1)
+		{
+			ft_execute(stack_a, stack_b, "pb", true);
+			ft_execute(NULL, stack_b, "rb", true);
+			i++;
+		}
+		else if (tmp->index <= i + approximation)
+		{
+			ft_execute(stack_a, stack_b, "pb", true);
+			i++;
+		}
+		else
+			ft_execute(stack_a, NULL, "ra", true);
+	}
+	// finish
+}
+
 void	ft_stack_sort(t_stack *stack)
 {
 	if (!stack)
@@ -84,5 +116,5 @@ void	ft_stack_sort(t_stack *stack)
 	else if (stack->m_size == 4 || stack->m_size == 5)
 		ft_simple_sort(stack);
 	else
-		exit(0);
+		ft_butterfly_sort(stack);
 }
