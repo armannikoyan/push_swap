@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 16:17:36 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/07/18 16:30:53 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:03:33 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static void	ft_rotate(t_stack *stack, bool reverse)
 		ft_error();
 	if (stack->m_size < 2)
 		return ;
+	tmp = stack->m_head;
 	if (!reverse)
 	{
-		tmp = stack->m_head->next;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = stack->m_head;
@@ -58,7 +58,6 @@ static void	ft_rotate(t_stack *stack, bool reverse)
 	}
 	else
 	{
-		tmp = stack->m_head;
 		while (tmp->next && tmp->next->next)
 			tmp = tmp->next;
 		tmp2 = tmp->next;
