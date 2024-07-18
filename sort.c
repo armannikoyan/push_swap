@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 15:05:49 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/07/15 13:40:18 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:28:53 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,28 +70,65 @@ static void	ft_simple_sort(t_stack *stack_a)
 	ft_stack_dtor(stack_b);
 }
 
+static unsigned int	ft_stack_target(t_stack *stack)
+{
+	t_node			*tmp;
+	unsigned int	target;
+
+	tmp = stack->m_head;
+	target = 0;
+	while (tmp)
+	{
+		if (tmp->index == stack->m_size)
+			break ;
+		tmp = tmp->next;
+		target++;
+	}
+	return (target);
+}
+
+static void	ft_butterfly_helper(t_stack *stack_a, t_stack *stack_b)
+{
+	unsigned int	mid;
+	unsigned int	target;
+	t_node			*tmp;
+
+	while (stack_b->m_head)
+	{
+		mid = (stack_b->m_size) / 2;
+		target = ft_stack_target(stack_b);
+		tmp = stack_b->m_head;
+		if (tmp->index == stack_b->m_size)
+			ft_execute(stack_a, stack_b, "pa", true);
+		else if (target < mid)
+			ft_execute(NULL, stack_b, "rb", true);
+		else if (target >= mid)
+			ft_execute(NULL, stack_b, "rrb", true);
+	}
+}
+
 static void	ft_butterfly_sort(t_stack *stack_a)
 {
-	int				i;
 	t_node			*tmp;
 	t_stack			*stack_b;
+	unsigned int	i;
 	unsigned int	approximation;
 
 	stack_b = ft_stack_ctor();
 	if (!stack_a || !stack_b)
 		ft_error();
-	approximation = (unsigned int)(0.0375 * stack_a->m_size + 11.25);
+	approximation = 0.0375 * stack_a->m_size + 11.25;
 	i = 1;
-	tmp = stack_a->m_head;
-	while (tmp)
+	while (stack_a->m_head)
 	{
-		if (tmp->index <= i && i > 1)
+		tmp = stack_a->m_head;
+		if (tmp->index <= i && i > 2)
 		{
 			ft_execute(stack_a, stack_b, "pb", true);
 			ft_execute(NULL, stack_b, "rb", true);
 			i++;
 		}
-		else if (tmp->index <= i + approximation)
+		else if (tmp->index <= i + approximation + 1)
 		{
 			ft_execute(stack_a, stack_b, "pb", true);
 			i++;
@@ -99,7 +136,8 @@ static void	ft_butterfly_sort(t_stack *stack_a)
 		else
 			ft_execute(stack_a, NULL, "ra", true);
 	}
-	// finish
+	ft_butterfly_helper(stack_a, stack_b);
+	ft_stack_dtor(stack_b);
 }
 
 void	ft_stack_sort(t_stack *stack)

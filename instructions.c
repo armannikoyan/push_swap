@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 16:17:36 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/05/10 22:42:36 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:30:53 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,58 @@
 
 static void	ft_swap(t_stack *stack)
 {
-	int	tmp;
+	t_node	*top;
 
 	if (!stack)
 		ft_error();
 	if (stack->m_size < 2)
 		return ;
-	tmp = stack->m_head->data;
-	stack->m_head->data = stack->m_head->next->data;
-	stack->m_head->next->data = tmp;
+	top = stack->m_head;
+	stack->m_head = stack->m_head->next;
+	top->next = stack->m_head->next;
+	stack->m_head->next = top;
 }
 
 static void	ft_push(t_stack *dst, t_stack *src)
 {
+	unsigned int	index;
+
 	if (!dst || !src)
 		ft_error();
 	ft_stack_push(dst, src->m_head->data);
+	index = src->m_head->index;
+	dst->m_head->index = index;
 	ft_stack_pop(src);
 }
 
 static void	ft_rotate(t_stack *stack, bool reverse)
 {
-	int		tmp;
-	t_stack	*tmp_stack;
+	t_node	*tmp;
+	t_node	*tmp2;
 
 	if (!stack)
 		ft_error();
 	if (stack->m_size < 2)
 		return ;
-	tmp_stack = ft_stack_ctor();
-	tmp = stack->m_head->data;
 	if (!reverse)
-		ft_stack_pop(stack);
-	while (!ft_stack_empty(stack))
-		ft_execute(stack, tmp_stack, "pb", false);
-	if (!reverse)
-		ft_stack_push(stack, tmp);
-	tmp = tmp_stack->m_head->data;
-	if (reverse)
-		ft_stack_pop(tmp_stack);
-	while (!ft_stack_empty(tmp_stack))
-		ft_execute(stack, tmp_stack, "pa", false);
-	if (reverse)
-		ft_stack_push(stack, tmp);
-	ft_stack_dtor(tmp_stack);
+	{
+		tmp = stack->m_head->next;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = stack->m_head;
+		stack->m_head = stack->m_head->next;
+		tmp->next->next = NULL;
+	}
+	else
+	{
+		tmp = stack->m_head;
+		while (tmp->next && tmp->next->next)
+			tmp = tmp->next;
+		tmp2 = tmp->next;
+		tmp->next = NULL;
+		tmp2->next = stack->m_head;
+		stack->m_head = tmp2;
+	}
 }
 
 static void	ft_execute_helper(t_stack *stack_a, t_stack *stack_b, char *name)
