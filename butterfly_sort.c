@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:11:20 by anikoyan          #+#    #+#             */
-/*   Updated: 2024/07/18 17:11:59 by anikoyan         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:15:50 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	ft_butterfly_helper(t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
-static void	ft_butterfly_sort(t_stack *stack_a)
+void	ft_butterfly_sort(t_stack *stack_a)
 {
 	t_stack			*stack_b;
 	unsigned int	i;
