@@ -89,7 +89,11 @@ char	**ft_format_argv(int argc, char **argv)
 	if (argc < 2)
 		return (NULL);
 	else if (argc == 2)
+	{
+		if (!ft_strlen(argv[1]))
+			ft_error();
 		return (ft_split(argv[1], ' '));
+	}
 	data = malloc(sizeof(char *) * argc);
 	i = 0;
 	while (argv[i + 1])
